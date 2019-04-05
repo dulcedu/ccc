@@ -2,7 +2,7 @@ import SimpleStorage from "./contracts/SimpleStorage.json";
 import ComplexStorage from "./contracts/ComplexStorage.json";
 import TutorialToken from "./contracts/TutorialToken.json";
 import AthleteToken from "./contracts/AthleteToken.json";
-import Ganache from "ganache-cli"
+const Ganache = require("ganache-core");
 
 const options = {
   web3: {
