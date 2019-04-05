@@ -76,7 +76,7 @@ class Balance extends Component {
           </td>
           <td style={this.state.tableData}>
             <div style={this.state.balance}>
-              <ContractData
+              {/* <ContractData
                 drizzle={this.props.drizzle}
                 drizzleState={this.props.drizzleState}
                 contract={this.props.tokenContract}
@@ -86,7 +86,7 @@ class Balance extends Component {
                 drizzle={this.props.drizzle}
                 drizzleState={this.props.drizzleState}
                 contract={this.props.tokenContract}
-                method="symbol" />
+                method="symbol" /> */}
             </div>
           </td>
         </tr>
@@ -103,11 +103,11 @@ export default (props) => (
         var drizzle = drizzleContext.drizzle
         var drizzleState = drizzle.store.getState()
         return (
-          <Balance
+          {/* <Balance
             drizzle={drizzle}
             drizzleState={drizzleState}
             currentAccount={drizzleState.accounts[props.index]}
-            tokenContract={props.tokenContract} />
+            tokenContract={props.tokenContract} /> */}
         )
       }
     }

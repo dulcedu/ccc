@@ -64,26 +64,26 @@ class Home extends Component {
           </div>
 
           <div className="pure-u-1-2">
-            <BalanceRange
+            {/* <BalanceRange
               drizzle={this.props.drizzle}
               drizzleState={this.props.drizzle.store.getState()}
               accountsToRetrieve={9}
-              tokenContract="AthleteToken" />
+              tokenContract="AthleteToken" /> */}
           </div>
 
           <div className="pure-u-1-2">
-            <BalanceSelect
+            {/* <BalanceSelect
               drizzle={this.props.drizzle}
               drizzleState={this.props.drizzle.store.getState()}
-              tokenContract="AthleteToken" />
+              tokenContract="AthleteToken" /> */}
           </div>
 
-          {/* <div className="pure-u-1">
-            <ContractView
+          <div className="pure-u-1">
+            {/* <ContractView
               drizzle={this.props.drizzle}
               drizzleState={this.props.drizzle.store.getState()}
-              contract="Crowdsale" />
-          </div> */}
+              contract="Crowdsale" /> */}
+          </div>
         </div>
       )
     }

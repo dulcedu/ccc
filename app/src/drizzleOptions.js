@@ -2,13 +2,13 @@ import SimpleStorage from "./contracts/SimpleStorage.json";
 import ComplexStorage from "./contracts/ComplexStorage.json";
 import TutorialToken from "./contracts/TutorialToken.json";
 import AthleteToken from "./contracts/AthleteToken.json";
-const Ganache = require("ganache-core");
+// import Ganache from "ganache-core"
 
 const options = {
   web3: {
-    customProvider: Ganache.provider({
-      gasLimit: 7000000
-    }),
+    // customProvider: Ganache.provider({
+    //   gasLimit: 7000000
+    // }),
     block: false,
     fallback: {
       type: "ws",
@@ -20,7 +20,7 @@ const options = {
     SimpleStorage: ["StorageSet"],
   },
   polls: {
-    accounts: 1500,
+    accounts: 10,
   },
 };
 
