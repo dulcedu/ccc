@@ -7,6 +7,7 @@ import drizzleOptions from './drizzleOptions'
 import Home from './layouts/home/Home'
 
 // Stylesy
+import './css/pure-min.css'
 import './App.css'
 
 class App extends Component {
