@@ -43,6 +43,7 @@ class BalanceSelect extends Component {
             <table className="pure-table">
               <tbody>
                 <Balance
+                  store={this.props.store}
                   drizzle={this.props.drizzle}
                   drizzleState={this.props.drizzleState}
                   index={this.state.index}
@@ -84,6 +85,7 @@ export default (props) => (
         var drizzleState = drizzle.store.getState()
         return (
           <BalanceSelect
+            store={drizzle.store}
             drizzle={drizzle}
             drizzleState={drizzleState}
             tokenContract={props.tokenContract} />

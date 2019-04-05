@@ -1,6 +1,3 @@
-import SimpleStorage from "./contracts/SimpleStorage.json";
-import ComplexStorage from "./contracts/ComplexStorage.json";
-import TutorialToken from "./contracts/TutorialToken.json";
 import AthleteToken from "./contracts/AthleteToken.json";
 // import Ganache from "ganache-core"
 
@@ -15,9 +12,8 @@ const options = {
       url: "ws://127.0.0.1:7545",
     },
   },
-  contracts: [AthleteToken, SimpleStorage, ComplexStorage, TutorialToken],
+  contracts: [AthleteToken],
   events: {
-    SimpleStorage: ["StorageSet"],
   },
   polls: {
     accounts: 10,

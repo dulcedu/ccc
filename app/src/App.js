@@ -16,7 +16,7 @@ class App extends Component {
     var drizzle = new Drizzle(drizzleOptions, drizzleStore)
     return (
       <DrizzleContext.Provider drizzle={drizzle}>
-        <Home store={drizzleStore}/>
+        <Home/>
       </DrizzleContext.Provider>
     )
   }

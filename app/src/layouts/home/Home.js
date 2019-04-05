@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { DrizzleContext } from 'drizzle-react'
 import _ from 'lodash'
+import logo from '../../logo.png'
 
 // Components
-import BalanceRange from '../components/BalanceRange.js'
-import BalanceSelect from '../components/BalanceSelect.js'
-// import ContractView from '../components/ContractView.js'
-
-import logo from '../../logo.png'
+import { newContextComponents } from "drizzle-react-components";
+const { ContractData } = newContextComponents;
 
 class Home extends Component {
 
@@ -64,25 +62,18 @@ class Home extends Component {
           </div>
 
           <div className="pure-u-1-2">
-            {/* <BalanceRange
+            <ContractData
               drizzle={this.props.drizzle}
-              drizzleState={this.props.drizzle.store.getState()}
-              accountsToRetrieve={9}
-              tokenContract="AthleteToken" /> */}
+              drizzleState={this.props.drizzleState}
+              contract={"AthleteToken"}
+              method="passYards"
+            />
           </div>
 
           <div className="pure-u-1-2">
-            {/* <BalanceSelect
-              drizzle={this.props.drizzle}
-              drizzleState={this.props.drizzle.store.getState()}
-              tokenContract="AthleteToken" /> */}
           </div>
 
-          <div className="pure-u-1">
-            {/* <ContractView
-              drizzle={this.props.drizzle}
-              drizzleState={this.props.drizzle.store.getState()}
-              contract="Crowdsale" /> */}
+          <div className="pure-u-1">            
           </div>
         </div>
       )
@@ -95,12 +86,15 @@ export default () => (
   <DrizzleContext.Consumer>
     {
       drizzleContext => {
-        var drizzle = drizzleContext.drizzle
-        var drizzleState = drizzle.store.getState()
+        const { drizzle, drizzleState, initialized } = drizzleContext;
+        if (!initialized) {
+          return "Loading...";
+        }
         return (
           <Home
             drizzle={drizzle}
-            drizzleState={drizzleState} />
+            drizzleState={drizzleState}
+          />
         )
       }
     }
