@@ -22,7 +22,17 @@
   "homepage": "https://github.com/truffle-box/drizzle-box#readme",
   "dependencies": {
     "drizzle-react": "^1.2.0",
-    "openzeppelin-solidity": "^2.1.1",
+    "openzeppelin-solidity": "^2.2.0",
     "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4",
+    "prettier-plugin-solidity": "^1.0.0-alpha.22"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
   }
 }
