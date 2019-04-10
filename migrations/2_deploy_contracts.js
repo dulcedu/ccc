@@ -15,6 +15,7 @@ module.exports = async (deployer) => {
     AT.address
   );
   let CC = await CollectiblesCrowdsale.deployed()
+  await AT.addMinter(CC.address)
   await CC.buyTokens(
     
     /** to */'0x5D27111dc74f9450a3D2400207385A8a1e59d260',
