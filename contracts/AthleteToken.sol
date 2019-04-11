@@ -8,7 +8,7 @@ contract AthleteToken is ERC721Mintable {
   mapping (uint256 => string) public playerName;
   mapping (uint256 => string) public birthPlace;
   mapping (uint256 => string) public birthDate;
-  
+
   mapping (uint256 => uint) public heightCm;
   mapping (uint256 => uint) public weightKg;
 
@@ -25,6 +25,11 @@ contract AthleteToken is ERC721Mintable {
     uint _heightCm,
     uint _weightKg,
     string memory _college,
+
+    /** 
+    * Puting data into arrays are the most optimal way 
+    * to make functions that require a lot of parameters
+    */
     uint[11] memory _basketballStats
     // uint _gamesPlayed,
     // uint _gamesStarted,
@@ -50,6 +55,7 @@ contract AthleteToken is ERC721Mintable {
     weightKg[_tokenId] = _weightKg;
 
     college[_tokenId] = _college;
+    
     basketballStats[_tokenId] = _basketballStats;
     //basketballStats[_tokenId] = [
     //   _gamesPlayed,
@@ -65,5 +71,5 @@ contract AthleteToken is ERC721Mintable {
     //   _pointsPerGame
     // ];
   }
- 
+
 }

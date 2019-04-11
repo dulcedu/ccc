@@ -2,22 +2,25 @@ const AthleteToken = artifacts.require('AthleteToken');
 const CollectiblesCrowdsale = artifacts.require('CollectiblesCrowdsale');
 
 module.exports = async (deployer, network, accounts) => {
+  
   await deployer.deploy(
     AthleteToken,
     'College Collectible Cards',
     'CCC'
   );
+
   let AT = await AthleteToken.deployed()
+  
   await deployer.deploy(
     CollectiblesCrowdsale,
-    100,
     accounts[1],
     AT.address
   );
-  // CollectiblesCrowdsale.autoGas = true
-  // CollectiblesCrowdsale.gasMultiplier(1.5)
+  
   let CC = await CollectiblesCrowdsale.deployed()
+  
   await AT.addMinter(CC.address)
+
   let newCardArguments = [
     /** to */accounts[0],
     /** name */'Zion Wilson',

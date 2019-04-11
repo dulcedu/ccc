@@ -59,12 +59,11 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     * @param wallet Address where collected funds will be forwarded to
     * @param token Address of the token being sold
     */
-  constructor(uint256 rate, address payable wallet, AthleteToken token) public {
-    require(rate > 0,"Error 1");
-    require(wallet != address(0),"Error 2");
-    require(address(token) != address(0),"Error 3");
+  constructor(address payable wallet, AthleteToken token) public {
+    require(wallet != address(0),"CollectiblesCrowdsale : Error 2");
+    require(address(token) != address(0),"CollectiblesCrowdsale : Error 3");
 
-    _rate = rate;
+    _rate = 600 szabo;
     _wallet = wallet;
     _token = token;
     _totalMintedTokens = 0;
@@ -131,7 +130,7 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     uint256 weiAmount = msg.value;
     _preValidatePurchase(_beneficiary, weiAmount);
 
-    uint256 batchSize = 100;
+    uint256 batchSize = 1;
 
     _weiRaised = _weiRaised.add(weiAmount);
 
@@ -165,8 +164,8 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     internal
     view
   {
-    require(_beneficiary != address(0),"Error 4");
-    require(_rate <= weiAmount, "You must send us some maneh!");
+    require(_beneficiary != address(0),"Beneficiary must not be address zero");
+    require(_rate == weiAmount, "You must send 100 wei");
   }
 
   /**
@@ -202,9 +201,8 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
       _college,
       _basketballStats
     );
-    index++;
     // }
-    _totalMintedTokens = index;
+    _totalMintedTokens = index++;
   }
 
   /**
