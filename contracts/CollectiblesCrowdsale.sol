@@ -99,6 +99,16 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   }
 
   /**
+    * @return the value received.
+    */
+  function valueReceived() public payable returns (uint value) {
+    value = msg.value;
+    emit ValueReceived(value);
+  }
+
+  event ValueReceived(uint indexed value);
+
+  /**
     * @dev low level token purchase ***DO NOT OVERRIDE***
     * This function has a non-reentrancy guard, so it shouldn't be called by
     * another `nonReentrant` function.
@@ -121,10 +131,8 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     uint256 weiAmount = msg.value;
     _preValidatePurchase(_beneficiary, weiAmount);
 
-    // calculate token amount to be created
     uint256 batchSize = 100;
 
-    // update state
     _weiRaised = _weiRaised.add(weiAmount);
 
     _processPurchase(
@@ -182,19 +190,20 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   internal
   {
     uint256 index = _tokenId;
-    for (; index < _batchSize; index++) {
-      _token.newCard(
-        _beneficiary,
-        index,
-        _playerName,
-        _birthPlace,
-        _birthDate,
-        _heightCm,
-        _weightKg,
-        _college,
-        _basketballStats
-      );
-    }
+    // for (; index < _batchSize; ) {
+    _token.newCard(
+      _beneficiary,
+      index,
+      _playerName,
+      _birthPlace,
+      _birthDate,
+      _heightCm,
+      _weightKg,
+      _college,
+      _basketballStats
+    );
+    index++;
+    // }
     _totalMintedTokens = index;
   }
 
