@@ -16,32 +16,32 @@ module.exports = async (deployer) => {
   );
   let CC = await CollectiblesCrowdsale.deployed()
   await AT.addMinter(CC.address)
-  await CC.buyTokens(
+  // await CC.buyTokens(
     
-    /** to */'0x5D27111dc74f9450a3D2400207385A8a1e59d260',
-    /** name */'Zion Wilson',
-    /** birthPlace */'Salisbury, North Carolina',
-    /** birthDate*/'July 6, 2000',
+  //   /** to */'0x5D27111dc74f9450a3D2400207385A8a1e59d260',
+  //   /** name */'Zion Wilson',
+  //   /** birthPlace */'Salisbury, North Carolina',
+  //   /** birthDate*/'July 6, 2000',
 
-    /** heightCm */201,
-    /** weightKg */129,
+  //   /** heightCm */201,
+  //   /** weightKg */129,
 
-    /** college */'Duke',
-    [
-    /** gamesPlayed */33,
-    /** gamesStarted */33,
-    /** minutesPerGame */30,
-    /** fieldGoalPercentage */680,
-    /** threPointFieldGoalPercentage */338,
-    /** freeThrowPercentage */640,
-    /** reboundsPerGame */89,
-    /** assistsPerGame */21,
-    /** stealsPerGame */21,
-    /** blocksPerGame */18,
-    /** pointsPerGame */226
-    ],
-    { value: 100 }    
-  )
+  //   /** college */'Duke',
+  //   [
+  //   /** gamesPlayed */33,
+  //   /** gamesStarted */33,
+  //   /** minutesPerGame */30,
+  //   /** fieldGoalPercentage */680,
+  //   /** threPointFieldGoalPercentage */338,
+  //   /** freeThrowPercentage */640,
+  //   /** reboundsPerGame */89,
+  //   /** assistsPerGame */21,
+  //   /** stealsPerGame */21,
+  //   /** blocksPerGame */18,
+  //   /** pointsPerGame */226
+  //   ],
+  //   { value: 100 }    
+  // )
   // CC.buyTokens(
 
   //   /** to */'0x5D27111dc74f9450a3D2400207385A8a1e59d260',
