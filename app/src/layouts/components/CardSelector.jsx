@@ -15,6 +15,7 @@ class CardSelector extends Component {
       drizzle: props.drizzle,
       drizzleState: props.drizzleState,
       initialized: false,
+      playerName: props.drizzle.contracts.AthleteToken.methods.playerName(0).call(),
       tableRow: {
         background: '#000',
         color: '#fff',
@@ -28,8 +29,9 @@ class CardSelector extends Component {
       tableHeader: {
         background: '#777'
       },
-      tokenId: 12345,
+      tokenId: 0,
     }
+    this.playerName = props.drizzle.contracts.AthleteToken.methods.playerName(0).call()
     this.images = {
       'Zion Wilson': ZionWilson,
       'Bam Adebayo': BamAdebayo,
@@ -49,10 +51,13 @@ class CardSelector extends Component {
       var drizzle = CardSelector.state.drizzle
       var drizzleState = drizzle.store.getState()
       if (drizzleState.drizzleStatus.initialized) {
-        CardSelector.setState({
-          drizzle: drizzle,
-          drizzleState: drizzleState,
-          initialized: true
+        CardSelector.setState((state, prevState) => {
+          return {
+            drizzle: drizzle,
+            drizzleState: drizzleState,
+            initialized: true,
+            ...prevState
+          }
         })
       }
     })
@@ -62,22 +67,27 @@ class CardSelector extends Component {
     this.unsubscribe()
   }
 
+  componentDidUpdate() {
+  }
+
   changeCard(event) {
     const { value } = event.target
+    let contracts = this.state.drizzle.contracts
+    contracts.AthleteToken.methods.playerName(value).call().then(r => {
+      this.playerName = r
+    }).then(r => {
+      console.log(value, this.playerName)
+    })
     this.setState((state, prevState) => {
       return {
         tokenId: value,
+        playerName: this.playerName,
         ...prevState,
       }
     })
   }
 
   render() {
-    // Declare this call to be cached and synchronized. We'll receive the store key for recall.
-    const dataKey = drizzle.contracts.AthleteToken.methods.playerName.cacheCall();
-
-    // Use the dataKey to display data from the store.
-    const value = this.state.drizzleState.contracts.AthleteToken.methods.playerName[dataKey].value;
     return (
       <div className='pure-u-1'>
         
@@ -158,9 +168,17 @@ class CardSelector extends Component {
 
         <div className='pure-u-1-2'>
           <div className='container'>
+            <ContractData
+              drizzle={this.props.drizzle}
+              drizzleState={this.props.drizzleState}
+              contract={'AthleteToken'}
+              method={'playerName'}
+              methodArgs={[this.state.tokenId]}
+              value={this.state.playerName}
+            />
             <img
-              src={this.images[this.state.tokenId.toString()]}
-              alt={this.state.tokenId.toString()}
+              src={this.images[this.state.playerName]}
+              alt={this.state.playerName}
               style={{ width: '100%' }}
             />
           </div>

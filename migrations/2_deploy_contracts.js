@@ -37,8 +37,10 @@ module.exports = async (deployer, network, accounts) => {
     ],
   ]
   let valueToSend = {
-    value: 10000000,
+    value: 600*10**12,
   }
+  // let value = await CC.valueReceived(valueToSend);
+  // console.log(value)
   let gasCost = await CC.buyTokens.estimateGas(...newCardArguments, valueToSend)
   await CC.buyTokens(
     ...newCardArguments,

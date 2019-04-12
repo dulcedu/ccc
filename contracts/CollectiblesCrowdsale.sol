@@ -52,7 +52,6 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   );
 
   /**
-    * @param rate Number of token units a buyer gets per wei
     * @dev The rate is the conversion between wei and the smallest and indivisible
     * token unit. So, if you are using a rate of 1 with a ERC20Detailed token
     * with 3 decimals called TOK, 1 wei will give you 1 unit, or 0.001 TOK.
@@ -170,8 +169,14 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     internal
     view
   {
-    require(_beneficiary != address(0),"Beneficiary must not be address zero");
-    require(_rate == weiAmount, "You must send 100 wei");
+    require(
+      _beneficiary != address(0),
+      "Beneficiary must not be address zero"
+    );
+    require(
+      _rate == weiAmount,
+      "CollectiblesCrowdasle._preValidatePurchase : You must pay the price of 600 szabo per token"
+    );
   }
 
   /**
