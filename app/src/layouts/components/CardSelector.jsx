@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { DrizzleContext } from 'drizzle-react'
 import { newContextComponents } from 'drizzle-react-components';
 import _ from 'lodash'
-import ZionWilliams from '../../img/ZionWilliams.jpeg'
+import ZionWilson from '../../img/ZionWilson.jpeg'
 import BamAdebayo from '../../img/BamAdebayo.jpg'
 
 const { ContractData } = newContextComponents;
@@ -31,8 +31,8 @@ class CardSelector extends Component {
       tokenId: 12345,
     }
     this.images = {
-      '12345': ZionWilliams,
-      '67890': BamAdebayo,
+      'Zion Wilson': ZionWilson,
+      'Bam Adebayo': BamAdebayo,
     }
     this.componentDidMount = this.componentDidMount.bind(this)
     this.changeCard = this.changeCard.bind(this)
@@ -73,6 +73,11 @@ class CardSelector extends Component {
   }
 
   render() {
+    // Declare this call to be cached and synchronized. We'll receive the store key for recall.
+    const dataKey = drizzle.contracts.AthleteToken.methods.playerName.cacheCall();
+
+    // Use the dataKey to display data from the store.
+    const value = this.state.drizzleState.contracts.AthleteToken.methods.playerName[dataKey].value;
     return (
       <div className='pure-u-1'>
         

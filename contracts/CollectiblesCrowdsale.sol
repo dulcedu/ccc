@@ -1,5 +1,5 @@
 // solium-disable linebreak-style
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.2;
 
 import "./AthleteToken.sol";
 import "./ReentrancyGuard.sol";
@@ -60,8 +60,14 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     * @param token Address of the token being sold
     */
   constructor(address payable wallet, AthleteToken token) public {
-    require(wallet != address(0),"CollectiblesCrowdsale : Error 2");
-    require(address(token) != address(0),"CollectiblesCrowdsale : Error 3");
+    require(
+      wallet != address(0),
+      "CollectiblesCrowdsale constructor : Address zero is universally invalid"
+    );
+    require(
+      address(token) != address(0),
+      "CollectiblesCrowdsale constructor : Address zero is universally invalid"
+    );
 
     _rate = 600 szabo;
     _wallet = wallet;

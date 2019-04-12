@@ -1,65 +1,48 @@
-const AthleteToken = artifacts.require('AthleteToken');
-const CollectiblesCrowdsale = artifacts.require('CollectiblesCrowdsale');
+const AthleteToken = artifacts.require('AthleteToken')
+const CollectiblesCrowdsale = artifacts.require('CollectiblesCrowdsale')
 
 module.exports = async (deployer, network, accounts) => {
-  
-  await deployer.deploy(
-    AthleteToken,
-    'College Collectible Cards',
-    'CCC'
-  );
+  await deployer.deploy(AthleteToken, 'College Collectible Cards', 'CCC')
 
   let AT = await AthleteToken.deployed()
-  
-  await deployer.deploy(
-    CollectiblesCrowdsale,
-    accounts[1],
-    AT.address
-  );
-  
+
+  await deployer.deploy(CollectiblesCrowdsale, accounts[1], AT.address)
+
   let CC = await CollectiblesCrowdsale.deployed()
-  
+
   await AT.addMinter(CC.address)
 
   let newCardArguments = [
-    /** to */accounts[0],
-    /** name */'Zion Wilson',
-    /** birthPlace */'Salisbury, North Carolina',
-    /** birthDate*/'July 6, 2000',
+    /** to */ accounts[0],
+    /** name */ 'Zion Wilson',
+    /** birthPlace */ 'Salisbury, North Carolina',
+    /** birthDate*/ 'July 6, 2000',
 
-    /** heightCm */201,
-    /** weightKg */129,
+    /** heightCm */ 201,
+    /** weightKg */ 129,
 
-    /** college */'Duke',
+    /** college */ 'Duke',
     [
-    /** gamesPlayed */33,
-    /** gamesStarted */33,
-    /** minutesPerGame */30,
-    /** fieldGoalPercentage */680,
-    /** threPointFieldGoalPercentage */338,
-    /** freeThrowPercentage */640,
-    /** reboundsPerGame */89,
-    /** assistsPerGame */21,
-    /** stealsPerGame */21,
-    /** blocksPerGame */18,
-    /** pointsPerGame */226
-    ]
-  ];
-  console.log(await CC.valueReceived({value: 10000000}))
-  let gasCost = await CC.buyTokens.estimateGas(
-    ...newCardArguments,
-    {
-      value: 10000000
-    }
-  )
-  console.log(gasCost)
+      /** gamesPlayed */ 33,
+      /** gamesStarted */ 33,
+      /** minutesPerGame */ 30,
+      /** fieldGoalPercentage */ 680,
+      /** threPointFieldGoalPercentage */ 338,
+      /** freeThrowPercentage */ 640,
+      /** reboundsPerGame */ 89,
+      /** assistsPerGame */ 21,
+      /** stealsPerGame */ 21,
+      /** blocksPerGame */ 18,
+      /** pointsPerGame */ 226,
+    ],
+  ]
+  let valueToSend = {
+    value: 10000000,
+  }
+  let gasCost = await CC.buyTokens.estimateGas(...newCardArguments, valueToSend)
   await CC.buyTokens(
     ...newCardArguments,
-    {
-      value: 10000000,
-      // gas: gasCost * 2,
-      // gasPrice: 20,
-    }
+    ({ gas: gasCost, ...valueToSend } = valueToSend),
   )
   // CC.buyTokens(
 
@@ -88,4 +71,4 @@ module.exports = async (deployer, network, accounts) => {
   //   { value: 100 }
 
   // )
-};
+}

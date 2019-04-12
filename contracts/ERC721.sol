@@ -57,7 +57,7 @@ contract ERC721 is ERC165, IERC721 {
     * @return uint256 representing the amount owned by the passed address
     */
   function balanceOf(address owner) public view returns (uint256) {
-    require(owner != address(0),"ERC721.balanceOf : Account zero is universally invalid");
+    require(owner != address(0),"ERC721.balanceOf : Address zero is universally invalid");
     return _ownedTokensCount[owner].current();
   }
 
@@ -68,7 +68,7 @@ contract ERC721 is ERC165, IERC721 {
     */
   function ownerOf(uint256 tokenId) public view returns (address) {
     address owner = _tokenOwner[tokenId];
-    require(owner != address(0),"ERC721.ownerOf : Account zero is universally invalid");
+    require(owner != address(0),"ERC721.ownerOf : Address zero is universally invalid");
     return owner;
   }
 
@@ -211,7 +211,7 @@ contract ERC721 is ERC165, IERC721 {
     * @param tokenId uint256 ID of the token to be minted
     */
   function _mint(address to, uint256 tokenId) internal {
-    require(to != address(0),"ERC721._mint : Account zero is universally invalid");
+    require(to != address(0),"ERC721._mint : Address zero is universally invalid");
     require(!_exists(tokenId),"ERC721._mint : A token with that tokenId already exists");
 
     _tokenOwner[tokenId] = to;
@@ -256,7 +256,7 @@ contract ERC721 is ERC165, IERC721 {
     */
   function _transferFrom(address from, address to, uint256 tokenId) internal {
     require(ownerOf(tokenId) == from,"ERC721._transferFrom : You can only transfer that token from it's owners address");
-    require(to != address(0),"ERC721._transferFrom : Account zero is universally invalid");
+    require(to != address(0),"ERC721._transferFrom : Address zero is universally invalid");
 
     _clearApproval(tokenId);
 

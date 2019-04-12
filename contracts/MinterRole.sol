@@ -15,7 +15,7 @@ contract MinterRole {
   }
 
   modifier onlyMinter() {
-    require(isMinter(msg.sender),"MinterRole.onlyMinter : Hey only minters can do this");
+    require(isMinter(msg.sender),"MinterRole.onlyMinter : Only minters can do this");
     _;
   }
 

@@ -15,7 +15,14 @@ module.exports = {
   },
   compilers: {
     solc: {
-      version: "^0.5.0"
+      version: "0.5.2",
+      settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200   // Optimize for how many times you intend to run the code
+        },
+        evmVersion: "homestead"  // Default: "byzantium"
+      }
     }
   },
   // See <http://truffleframework.com/docs/advanced/configuration>
