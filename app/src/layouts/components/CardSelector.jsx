@@ -33,8 +33,8 @@ class CardSelector extends Component {
     }
     this.playerName = props.drizzle.contracts.AthleteToken.methods.playerName(0).call()
     this.images = {
-      'Zion Wilson': ZionWilson,
-      'Bam Adebayo': BamAdebayo,
+      '0': ZionWilson,
+      '1': BamAdebayo,
     }
     this.componentDidMount = this.componentDidMount.bind(this)
     this.changeCard = this.changeCard.bind(this)
@@ -72,8 +72,7 @@ class CardSelector extends Component {
 
   changeCard(event) {
     const { value } = event.target
-    let contracts = this.state.drizzle.contracts
-    contracts.AthleteToken.methods.playerName(value).call().then(r => {
+    this.state.drizzle.contracts.AthleteToken.methods.playerName(value).call().then(r => {
       this.playerName = r
     }).then(r => {
       console.log(value, this.playerName)
@@ -168,19 +167,23 @@ class CardSelector extends Component {
 
         <div className='pure-u-1-2'>
           <div className='container'>
-            <ContractData
-              drizzle={this.props.drizzle}
-              drizzleState={this.props.drizzleState}
-              contract={'AthleteToken'}
-              method={'playerName'}
-              methodArgs={[this.state.tokenId]}
-              value={this.state.playerName}
-            />
-            <img
-              src={this.images[this.state.playerName]}
-              alt={this.state.playerName}
-              style={{ width: '100%' }}
-            />
+            <div>
+              {/* <ContractData
+                drizzle={this.props.drizzle}
+                drizzleState={this.props.drizzleState}
+                contract={'AthleteToken'}
+                method={'playerName'}
+                methodArgs={[this.state.tokenId]}
+                value={this.state.playerName}
+              /> */}
+            </div>
+            <div>
+              <img
+                src={this.images[this.state.tokenId]}
+                alt={this.state.playerName}
+                style={{ width: '100%' }}
+              />
+            </div>
           </div>
         </div>
 
