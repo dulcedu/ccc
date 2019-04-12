@@ -12,7 +12,7 @@ module.exports = async (deployer, network, accounts) => {
 
   await AT.addMinter(CC.address)
 
-  let newCardArguments = [
+  let ZionWilson = [
     /** to */ accounts[0],
     /** name */ 'Zion Wilson',
     /** birthPlace */ 'Salisbury, North Carolina',
@@ -36,41 +36,42 @@ module.exports = async (deployer, network, accounts) => {
       /** pointsPerGame */ 226,
     ],
   ]
+  let BamAdebayo = [
+    /** to */accounts[0],
+    /** name */'Bam Adebayo',
+    /** birthPlace */'Newark, New Jersey',
+    /** birthDate*/'July 18, 1997',
+
+    /** heightCm */208,
+    /** weightKg */113,
+
+    /** college */'Kentucky',
+    [
+    /** gamesPlayed */33,
+    /** gamesStarted */33,
+    /** minutesPerGame */30,
+    /** fieldGoalPercentage */680,
+    /** threPointFieldGoalPercentage */338,
+    /** freeThrowPercentage */640,
+    /** reboundsPerGame */89,
+    /** assistsPerGame */21,
+    /** stealsPerGame */21,
+    /** blocksPerGame */18,
+    /** pointsPerGame */226
+    ]
+  ]
   let valueToSend = {
     value: 600*10**12,
   }
   // let value = await CC.valueReceived(valueToSend);
   // console.log(value)
-  let gasCost = await CC.buyTokens.estimateGas(...newCardArguments, valueToSend)
+  let gasCost = await CC.buyTokens.estimateGas(...ZionWilson, valueToSend)
   await CC.buyTokens(
-    ...newCardArguments,
+    ...ZionWilson,
     ({ gas: gasCost, ...valueToSend } = valueToSend),
   )
-  // CC.buyTokens(
-
-  //   /** to */'0x5D27111dc74f9450a3D2400207385A8a1e59d260',
-  //   /** name */'Bam Adebayo',
-  //   /** birthPlace */'Newark, New Jersey',
-  //   /** birthDate*/'July 18, 1997',
-
-  //   /** heightCm */208,
-  //   /** weightKg */113,
-
-  //   /** college */'Kentucky',
-  //   [
-  //   /** gamesPlayed */33,
-  //   /** gamesStarted */33,
-  //   /** minutesPerGame */30,
-  //   /** fieldGoalPercentage */680,
-  //   /** threPointFieldGoalPercentage */338,
-  //   /** freeThrowPercentage */640,
-  //   /** reboundsPerGame */89,
-  //   /** assistsPerGame */21,
-  //   /** stealsPerGame */21,
-  //   /** blocksPerGame */18,
-  //   /** pointsPerGame */226
-  //   ],
-  //   { value: 100 }
-
-  // )
+  await CC.buyTokens(
+    ...BamAdebayo,
+    ({ gas: gasCost, ...valueToSend } = valueToSend),
+  )
 }
