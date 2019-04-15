@@ -11,7 +11,7 @@ export default class Title extends Component {
           fontFamily: 'inherit'
         }}
       >
-        <h1>COLLEGE CARDS </h1>
+        <h1>FAIR SHARE E-CARDS</h1>
       </div>
     )
   }
