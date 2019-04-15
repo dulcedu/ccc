@@ -81,7 +81,10 @@ class CardSelector extends Component {
 
             <h2>College Card Collectibles Token Fields</h2>
 
-            <form className='pure-form'>
+            <form
+              className='pure-form'
+              style={{ width: '100%' }}
+            >
               <fieldset>
                 <label htmlFor='selectedCard'>
                   <strong>Select card by ID: </strong>
@@ -93,6 +96,7 @@ class CardSelector extends Component {
                   type='number'
                   value={this.state.tokenId}
                   onChange={this.changeCard}
+                  style={{ width: '100%' }}
                 />
                 <br />
                 
@@ -104,6 +108,7 @@ class CardSelector extends Component {
                   id='sendFrom'
                   type='text'
                   value={this.state.drizzleState.accounts[0]}
+                  style={{ width: '100%' }}
                   readOnly
                 />
                 <br />

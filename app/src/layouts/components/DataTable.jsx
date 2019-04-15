@@ -13,6 +13,12 @@ class DataTable extends Component {
       tokenId: props.tokenId
     }
     this.style = {
+      table: {
+        width: '100%',
+        border: 'none',
+        borderRadius: '10px',
+        overflow: 'hidden',
+      },
       tableRow: {
         background: '#000',
         color: '#fff',
@@ -34,10 +40,7 @@ class DataTable extends Component {
       <div>
         <table
           className='pure-table'
-          style={{
-            width: '100%',
-            border: 'none'
-          }}
+          style={this.style.table}
         >
           <tbody>
             <tr style={this.style.tableRow}>
@@ -85,10 +88,7 @@ class DataTable extends Component {
         
         <table
           className='pure-table'
-          style={{
-            width: '100%',
-            border: 'none'
-          }}
+          style={this.style.table}
         >
           <tbody>
             <tr style={this.style.tableRow}>
