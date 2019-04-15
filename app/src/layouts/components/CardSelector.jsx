@@ -36,6 +36,8 @@ class CardSelector extends Component {
       ZionWilson,
       ZionWilson,
       BamAdebayo,
+      BamAdebayo,
+      BamAdebayo,
     ]
     this.componentDidMount = this.componentDidMount.bind(this)
     this.changeCard = this.changeCard.bind(this)

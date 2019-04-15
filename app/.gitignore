@@ -1,7 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules/*
+!node_modules/drizzle-react-components/
+node_modules/drizzle-react-components/*
+!node_modules/drizzle-react-components/src/
+node_modules/drizzle-react-components/src/*
+!node_modules/drizzle-react-components/src/new-context-api
+
 /.pnp
 .pnp.js
 
