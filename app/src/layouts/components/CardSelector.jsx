@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { DrizzleContext } from 'drizzle-react'
 import { newContextComponents } from 'drizzle-react-components';
+
+import DataTable from './DataTable';
+
 import _ from 'lodash'
+
 import ZionWilson from '../../img/ZionWilson.jpeg'
 import BamAdebayo from '../../img/BamAdebayo.jpg'
+
 
 const { ContractData } = newContextComponents;
 
@@ -15,19 +20,6 @@ class CardSelector extends Component {
       drizzle: props.drizzle,
       drizzleState: props.drizzleState,
       initialized: false,
-      tableRow: {
-        background: '#000',
-        color: '#fff',
-        padding: '2px',
-        fontWeight: 'bold',
-      },
-      tableData: {
-        _1st: { width: '80%' },
-        _2nd: { },
-      },
-      tableHeader: {
-        background: '#777'
-      },
       tokenId: 0,
     }
     this.accounts = this.state.drizzleState.accounts
@@ -95,6 +87,7 @@ class CardSelector extends Component {
                   <strong>Select card by ID: </strong>
                 </label>
                 <br />
+
                 <input
                   id='selectedCard'
                   type='number'
@@ -117,62 +110,9 @@ class CardSelector extends Component {
               </fieldset>
             </form>
 
-            <table
-              className='pure-table'
-              style={{
-                width: '100%',
-                border: 'none'
-              }}
-            >
-              <tbody>
-                <tr style={this.state.tableRow}>
-                  <th style={this.state.tableHeader}>
-                    <div>Field</div>
-                  </th>
-                  <th style={this.state.tableHeader}>
-                    <div>Value</div>
-                  </th>
-                </tr>
-                {_.range(11)
-                  .map(
-                  index => {
-                    let stats = [
-                      'gamesPlayed',
-                      'gamesStarted',
-                      'minutesPerGame',
-                      'fieldGoalPercentage',
-                      'threPointFieldGoalPercentage',
-                      'freeThrowPercentage',
-                      'reboundsPerGame',
-                      'assistsPerGame',
-                      'stealsPerGame',
-                      'blocksPerGame',
-                      'pointsPerGame'
-                    ]
-                    return(
-                      <tr key={index} style={this.state.tableRow}>
-                        <td style={this.state.tableData._1st}>{stats[index]}</td>
-                        <td style={this.state.tableData._2nd}>
-                          <div>
-                            <ContractData
-                              drizzle={this.props.drizzle}
-                              drizzleState={this.props.drizzleState}
-                              contract={'AthleteToken'}
-                              method={'basketballStats'}
-                              methodArgs={[
-                                this.state.tokenId,
-                                index
-                              ]}
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    )
-                  }
-                )}
-              </tbody>
-            
-            </table>
+            <DataTable
+              tokenId={this.state.tokenId}
+            />
 
           </div>
         </div>

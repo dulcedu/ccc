@@ -119,6 +119,20 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   }
 
   /**
+    * @return the amount of wei raised.
+    */
+  function totalMintedTokens() public view returns (uint256) {
+    return _totalMintedTokens;
+  }
+
+  /**
+    * @return the amount of wei raised.
+    */
+  function batchSize() public view returns (uint256) {
+    return _batchSize;
+  }
+
+  /**
     * @return the crowdsale opening time.
     */
   function openingTime() public view returns (uint256) {
@@ -250,7 +264,8 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     internal
   {
     uint256 index = _totalMintedTokens;
-    for (; index < _batchSize; index++) {
+    uint256 target = _totalMintedTokens+_batchSize;
+    for (; index < target; index++) {
       _token.newCard(
         _beneficiary,
         index,

@@ -74,14 +74,21 @@ module.exports = async (deployer, network, accounts) => {
   }
   // let value = await CC.valueReceived(valueToSend);
   // console.log(value)
+
   let gasCost = await CC.buyTokens.estimateGas(...ZionWilson, valueToSend)
+
   await CC.TokensPurchased().once('data', event => console.log(event))
+
   await CC.buyTokens(...ZionWilson, valueToSend)
-    .on('transactionHash', console.log)
-  await CC.buyTokens(...BamAdebayo, valueToSend)
-    .on('transactionHash', console.log)
+    // .on('transactionHash', console.log)
     // .on('receipt', console.log)
     // .on('error', console.log)
     // .on('confirmation', console.log)
-  
+    
+  await CC.buyTokens(...BamAdebayo, valueToSend)
+    // .on('transactionHash', console.log)
+    // .on('receipt', console.log)
+    // .on('error', console.log)
+    // .on('confirmation', console.log)
+    
 }

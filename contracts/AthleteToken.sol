@@ -35,10 +35,10 @@ contract AthleteToken is ERC721Mintable {
     // uint _gamesStarted,
     // uint _minutesPerGame,
     // uint _fieldGoalPercentage,
-    // uint _threePointFieldGoalPercentage, 
+    // uint _threePointFieldGoalPercentage,
     // uint _freeThrowPercentage,
     // uint _reboundsPerGame,
-    // uint _assistsPerGame, 
+    // uint _assistsPerGame,
     // uint _stealsPerGame,
     // uint _blocksPerGame,
     // uint _pointsPerGame
