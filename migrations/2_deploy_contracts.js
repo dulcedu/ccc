@@ -6,7 +6,16 @@ module.exports = async (deployer, network, accounts) => {
 
   let AT = await AthleteToken.deployed()
 
-  await deployer.deploy(CollectiblesCrowdsale, accounts[1], AT.address)
+  let now = Date.UTC(1970, 0, 1, 0, 0, 0)
+  console.log(now,new Date(now).toLocaleString('en-GB', { timeZone: 'GMT' }))
+
+  await deployer.deploy(
+    CollectiblesCrowdsale,
+    accounts[1],
+    AT.address,
+    now,
+    Date.parse('Mon, 15 Apr 2019 23:30:00 GMT')
+  )
 
   let CC = await CollectiblesCrowdsale.deployed()
 

@@ -18,7 +18,6 @@ import "./ReentrancyGuard.sol";
  */
 contract CollectiblesCrowdsale is ReentrancyGuard {
   using SafeMath for uint256;
-  using SafeMath for uint;
 
   // The token being sold
   AthleteToken private _token;
@@ -30,7 +29,7 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   // The rate is the conversion between wei and the smallest and indivisible token unit.
   // So, if you are using a rate of 1 with a ERC20Detailed token with 3 decimals called TOK
   // 1 wei will give you 1 unit, or 0.001 TOK.
-  uint private _rate;
+  uint256 private _rate;
 
   // Amount of wei raised
   uint256 private _weiRaised;
@@ -38,6 +37,11 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   uint256 private _totalMintedTokens;
 
   uint256 private _batchSize;
+
+  uint256 private _openingTime;
+
+  uint256 private _closingTime;
+
 
   /**
     * Event for token purchase logging
@@ -60,14 +64,21 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     * @param wallet Address where collected funds will be forwarded to
     * @param token Address of the token being sold
     */
-  constructor(address payable wallet, AthleteToken token) public {
+  constructor(
+    address payable wallet, 
+    AthleteToken token,
+    uint256 openingTime, 
+    uint256 closingTime
+  )
+    public 
+  {
     require(
       wallet != address(0),
-      "CollectiblesCrowdsale constructor : Address zero is universally invalid"
+      "CollectiblesCrowdsale constructor : Can't have address zero as a wallet"
     );
     require(
       address(token) != address(0),
-      "CollectiblesCrowdsale constructor : Address zero is universally invalid"
+      "CollectiblesCrowdsale constructor : Address zero is not a token"
     );
 
     _rate = 600 szabo;
@@ -75,6 +86,8 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     _token = token;
     _totalMintedTokens = 0;
     _batchSize = 3;
+    _openingTime = openingTime;
+    _closingTime = closingTime;
   }
 
    /**
@@ -105,6 +118,20 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     return _weiRaised;
   }
 
+  /**
+    * @return the crowdsale opening time.
+    */
+  function openingTime() public view returns (uint256) {
+    return _openingTime;
+  }
+
+  /**
+    * @return the crowdsale closing time.
+    */
+  function closingTime() public view returns (uint256) {
+    return _closingTime;
+  }
+  
   /**
     * @dev low level token purchase ***DO NOT OVERRIDE***
     * This function has a non-reentrancy guard, so it shouldn't be called by
@@ -158,6 +185,14 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     internal
     view
   {
+    require(
+      _openingTime <= now,
+      "CollectiblesCrowdsale._preValidatePurchase : The crowdsale is not yet open"
+    );
+    require(
+      now <= _closingTime,
+      "CollectiblesCrowdsale._preValidatePurchase : The crowdsale is closed"
+    );
     require(
       _beneficiary != address(0),
       "Beneficiary must not be address zero"
