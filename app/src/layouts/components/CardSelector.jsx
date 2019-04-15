@@ -15,7 +15,6 @@ class CardSelector extends Component {
       drizzle: props.drizzle,
       drizzleState: props.drizzleState,
       initialized: false,
-      playerName: props.drizzle.contracts.AthleteToken.methods.playerName(0).call(),
       tableRow: {
         background: '#000',
         color: '#fff',
@@ -23,7 +22,7 @@ class CardSelector extends Component {
         fontWeight: 'bold',
       },
       tableData: {
-        _1st: { width: '80%'},
+        _1st: { width: '80%' },
         _2nd: { },
       },
       tableHeader: {
@@ -31,11 +30,13 @@ class CardSelector extends Component {
       },
       tokenId: 0,
     }
-    this.playerName = props.drizzle.contracts.AthleteToken.methods.playerName(0).call()
-    this.images = {
-      '0': ZionWilson,
-      '1': BamAdebayo,
-    }
+    this.accounts = this.state.drizzleState.accounts
+    this.images = [
+      ZionWilson,
+      ZionWilson,
+      ZionWilson,
+      BamAdebayo,
+    ]
     this.componentDidMount = this.componentDidMount.bind(this)
     this.changeCard = this.changeCard.bind(this)
   }
@@ -67,20 +68,11 @@ class CardSelector extends Component {
     this.unsubscribe()
   }
 
-  componentDidUpdate() {
-  }
-
   changeCard(event) {
     const { value } = event.target
-    this.state.drizzle.contracts.AthleteToken.methods.playerName(value).call().then(r => {
-      this.playerName = r
-    }).then(r => {
-      console.log(value, this.playerName)
-    })
     this.setState((state, prevState) => {
       return {
         tokenId: value,
-        playerName: this.playerName,
         ...prevState,
       }
     })
@@ -100,11 +92,26 @@ class CardSelector extends Component {
                 <label htmlFor='selectedCard'>
                   <strong>Select card by ID: </strong>
                 </label>
+                <br />
                 <input
                   id='selectedCard'
                   type='number'
                   value={this.state.tokenId}
-                  onChange={this.changeCard} />
+                  onChange={this.changeCard}
+                />
+                <br />
+                
+                <label htmlFor='sendFrom'>
+                  <strong>Select account to send from: </strong>
+                </label>
+                <br />
+                <input
+                  id='sendFrom'
+                  type='text'
+                  value={this.state.drizzleState.accounts[0]}
+                  readOnly
+                />
+                <br />
               </fieldset>
             </form>
 
@@ -150,7 +157,10 @@ class CardSelector extends Component {
                               drizzleState={this.props.drizzleState}
                               contract={'AthleteToken'}
                               method={'basketballStats'}
-                              methodArgs={[this.state.tokenId,index]}
+                              methodArgs={[
+                                this.state.tokenId,
+                                index
+                              ]}
                             />
                           </div>
                         </td>
@@ -180,7 +190,7 @@ class CardSelector extends Component {
             <div>
               <img
                 src={this.images[this.state.tokenId]}
-                alt={this.state.playerName}
+                alt={this.state.tokenId}
                 style={{ width: '100%' }}
               />
             </div>

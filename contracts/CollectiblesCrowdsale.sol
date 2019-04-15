@@ -18,6 +18,7 @@ import "./ReentrancyGuard.sol";
  */
 contract CollectiblesCrowdsale is ReentrancyGuard {
   using SafeMath for uint256;
+  using SafeMath for uint;
 
   // The token being sold
   AthleteToken private _token;
@@ -29,13 +30,14 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   // The rate is the conversion between wei and the smallest and indivisible token unit.
   // So, if you are using a rate of 1 with a ERC20Detailed token with 3 decimals called TOK
   // 1 wei will give you 1 unit, or 0.001 TOK.
-  uint256 private _rate;
+  uint private _rate;
 
   // Amount of wei raised
   uint256 private _weiRaised;
 
-
   uint256 private _totalMintedTokens;
+
+  uint256 private _batchSize;
 
   /**
     * Event for token purchase logging
@@ -72,6 +74,7 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     _wallet = wallet;
     _token = token;
     _totalMintedTokens = 0;
+    _batchSize = 3;
   }
 
    /**
@@ -103,16 +106,6 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   }
 
   /**
-    * @return the value received.
-    */
-  function valueReceived() public payable returns (uint value) {
-    value = msg.value;
-    emit ValueReceived(value);
-  }
-
-  event ValueReceived(uint indexed value);
-
-  /**
     * @dev low level token purchase ***DO NOT OVERRIDE***
     * This function has a non-reentrancy guard, so it shouldn't be called by
     * another `nonReentrant` function.
@@ -135,23 +128,19 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     uint256 weiAmount = msg.value;
     _preValidatePurchase(_beneficiary, weiAmount);
 
-    uint256 batchSize = 1;
-
     _weiRaised = _weiRaised.add(weiAmount);
 
     _processPurchase(
       _beneficiary,
-      _totalMintedTokens,
       _playerName,
       _birthPlace,
       _birthDate,
       _heightCm,
       _weightKg,
       _college,
-      _basketballStats,
-      batchSize
+      _basketballStats
     );
-    emit TokensPurchased(msg.sender, _beneficiary, weiAmount, batchSize);
+    emit TokensPurchased(msg.sender, _beneficiary, weiAmount, _batchSize);
 
     _forwardFunds();
   }
@@ -180,30 +169,24 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
   }
 
   /**
-    * @dev Source of tokens. Override this method to modify the way in which the crowdsale ultimately gets and sends
-    * its tokens.
-    * @param _beneficiary Address performing the token purchase
-    * @param _batchSize Number of tokens to be emitted
+    * @dev Executed when a purchase has been validated and is ready to be executed. Doesn't necessarily emit/send
+    * tokens.
+    * @param _beneficiary Address receiving the tokens
     */
-  function _deliverTokens(
+  function _processPurchase(
     address _beneficiary,
-    uint256 _tokenId,
     string memory _playerName,
     string memory _birthPlace,
     string memory _birthDate,
     uint _heightCm,
     uint _weightKg,
     string memory _college,
-    uint[11] memory _basketballStats,
-    uint256 _batchSize
+    uint[11] memory _basketballStats
   ) 
-  internal
+    internal 
   {
-    uint256 index = _tokenId;
-    // for (; index < _batchSize; ) {
-    _token.newCard(
+    _deliverTokens(
       _beneficiary,
-      index,
       _playerName,
       _birthPlace,
       _birthDate,
@@ -212,42 +195,40 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
       _college,
       _basketballStats
     );
-    // }
-    _totalMintedTokens = index++;
   }
 
   /**
-    * @dev Executed when a purchase has been validated and is ready to be executed. Doesn't necessarily emit/send
-    * tokens.
-    * @param _beneficiary Address receiving the tokens
-    * @param _batchSize Number of tokens to be purchased
+    * @dev Source of tokens. Override this method to modify the way in which the crowdsale ultimately gets and sends
+    * its tokens.
+    * @param _beneficiary Address performing the token purchase
     */
-  function _processPurchase(
+  function _deliverTokens(
     address _beneficiary,
-    uint256 _tokenId,
     string memory _playerName,
     string memory _birthPlace,
     string memory _birthDate,
     uint _heightCm,
     uint _weightKg,
     string memory _college,
-    uint[11] memory _basketballStats,
-    uint256 _batchSize
+    uint[11] memory _basketballStats
   ) 
-  internal 
+    internal
   {
-    _deliverTokens(
-      _beneficiary,
-      _tokenId,
-      _playerName,
-      _birthPlace,
-      _birthDate,
-      _heightCm,
-      _weightKg,
-      _college,
-      _basketballStats,
-      _batchSize
-    );
+    uint256 index = _totalMintedTokens;
+    for (; index < _batchSize; index++) {
+      _token.newCard(
+        _beneficiary,
+        index,
+        _playerName,
+        _birthPlace,
+        _birthDate,
+        _heightCm,
+        _weightKg,
+        _college,
+        _basketballStats
+      );
+    }
+    _totalMintedTokens = index;
   }
 
   /**

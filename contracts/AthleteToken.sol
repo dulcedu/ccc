@@ -43,7 +43,7 @@ contract AthleteToken is ERC721Mintable {
     // uint _blocksPerGame,
     // uint _pointsPerGame
   )
-  public
+    public
   {
     mint(_to, _tokenId);
 
