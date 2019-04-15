@@ -6,8 +6,11 @@ import DataTable from './DataTable';
 
 import _ from 'lodash'
 
-import ZionWilson from '../../img/ZionWilson.jpeg'
-import BamAdebayo from '../../img/BamAdebayo.jpg'
+import ZionWilliamson from '../../img/1.png'
+import CamRedish from '../../img/2.png'
+import NassirLittle from '../../img/3.png'
+import RJBarrett from '../../img/4.png'
+import EdwardCarsen from '../../img/5.png'
 
 
 const { ContractData } = newContextComponents;
@@ -24,12 +27,21 @@ class CardSelector extends Component {
     }
     this.accounts = this.state.drizzleState.accounts
     this.images = [
-      ZionWilson,
-      ZionWilson,
-      ZionWilson,
-      BamAdebayo,
-      BamAdebayo,
-      BamAdebayo,
+      ZionWilliamson,
+      ZionWilliamson,
+      ZionWilliamson,
+      CamRedish,
+      CamRedish,
+      CamRedish,
+      NassirLittle,
+      NassirLittle,
+      NassirLittle,
+      RJBarrett,
+      RJBarrett,
+      RJBarrett,
+      // EdwardCarsen,
+      // EdwardCarsen,
+      // EdwardCarsen,
     ]
     this.componentDidMount = this.componentDidMount.bind(this)
     this.changeCard = this.changeCard.bind(this)
