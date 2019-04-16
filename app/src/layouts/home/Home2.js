@@ -43,7 +43,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="pure-g" style={{ backgroundColor:'#f50' }}>        
+      <div className="pure-g" style={{ backgroundColor:'#5f0' }}>        
         <Title/>
         <CardSelector
           drizzle={this.props.drizzle}

@@ -58,7 +58,7 @@
       /** weightKg */ 123,
 
       /** college */ 'North',
-        [
+      [
         /** gamesPlayed */ 24,
         /** gamesStarted */ 23,
         /** minutesPerGame */ 35,
@@ -70,7 +70,7 @@
         /** stealsPerGame */ 36,
         /** blocksPerGame */ 13,
         /** pointsPerGame */ 196,
-        ],
+      ],
     ],
     RJBarrett: [
       /** to */ accounts[0],

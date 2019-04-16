@@ -9,9 +9,6 @@ const { ContractData } = newContextComponents;
 class DataTable extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      tokenId: props.tokenId
-    }
     this.style = {
       table: {
         width: '100%',
@@ -61,6 +58,7 @@ class DataTable extends Component {
                   'college'
                 ],
                 element => {
+                  console.log(element)
                   return (
                     <tr key={element} style={this.style.tableRow}>
                       <td style={this.style.tableData}>{element}</td>
