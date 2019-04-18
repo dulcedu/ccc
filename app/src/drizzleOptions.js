@@ -1,4 +1,5 @@
 import AthleteToken from "./contracts/AthleteToken.json";
+import CollectiblesCrowdsale from "./contracts/CollectiblesCrowdsale.json";
 // import Ganache from "ganache-core"
 
 const options = {
@@ -12,7 +13,7 @@ const options = {
       url: "ws://127.0.0.1:7545",
     },
   },
-  contracts: [AthleteToken],
+  contracts: [AthleteToken, CollectiblesCrowdsale],
   events: {
   },
   polls: {

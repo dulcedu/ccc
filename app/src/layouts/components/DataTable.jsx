@@ -58,7 +58,6 @@ class DataTable extends Component {
                   'college'
                 ],
                 element => {
-                  console.log(element)
                   return (
                     <tr key={element} style={this.style.tableRow}>
                       <td style={this.style.tableData}>{element}</td>
@@ -67,7 +66,7 @@ class DataTable extends Component {
                           <ContractData
                             drizzle={this.props.drizzle}
                             drizzleState={this.props.drizzleState}
-                            contract={'AthleteToken'}
+                            contract='AthleteToken'
                             method={element}
                             methodArgs={[
                               this.props.tokenId

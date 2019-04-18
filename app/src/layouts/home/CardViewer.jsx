@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { DrizzleContext } from 'drizzle-react'
 import { newContextComponents } from 'drizzle-react-components';
 
-import DataTable from './DataTable';
+import DataTable from '../components/DataTable';
 
 import _ from 'lodash'
 
@@ -86,76 +86,63 @@ class CardSelector extends Component {
 
   render() {
     return (
-      <div className='pure-u-1'>
-        
-        <div className='pure-u-1-2'>
-          <div className='container'>
+      <div className="pure-g" style={{ backgroundColor: '#f50' }}>
+        <div className='pure-u-1'>
+          
+          <div className='pure-u-1-2'>
+            <div className='container'>
 
-            <h2>College Card Collectibles Token Fields</h2>
+              <h2>Visualize Fair Share eCard by ID</h2>
 
-            <form
-              className='pure-form'
-              style={{ width: '100%' }}
-            >
-              <fieldset>
-                <label htmlFor='selectedCard'>
-                  <strong>Select card by ID: </strong>
-                </label>
-                <br />
-
-                <input
-                  id='selectedCard'
-                  type='number'
-                  value={this.state.tokenId}
-                  onChange={this.changeCard}
-                  style={{ width: '100%' }}
-                />
-                <br />
-                
-                <label htmlFor='sendFrom'>
-                  <strong>Select account to send from: </strong>
-                </label>
-                <br />
-                <input
-                  id='sendFrom'
-                  type='text'
-                  value={this.state.drizzleState.accounts[0]}
-                  style={{ width: '100%' }}
-                  readOnly
-                />
-                <br />
-              </fieldset>
-            </form>
-
-            <DataTable
-              tokenId={this.state.tokenId}
-            />
-
-          </div>
-        </div>
-
-        <div className='pure-u-1-2'>
-          <div className='container'>
-            <div>
-              {/* <ContractData
-                drizzle={this.props.drizzle}
-                drizzleState={this.props.drizzleState}
-                contract={'AthleteToken'}
-                method={'playerName'}
-                methodArgs={[this.state.tokenId]}
-                value={this.state.playerName}
-              /> */}
-            </div>
-            <div>
-              <img
-                src={this.images[this.state.tokenId]}
-                alt={this.state.tokenId}
+              <form
+                className='pure-form'
                 style={{ width: '100%' }}
+              >
+                <fieldset>
+                  <label htmlFor='selectedCard'>
+                    <strong>Select card by ID: </strong>
+                  </label>
+
+                  <input
+                    id='selectedCard'
+                    type='number'
+                    value={this.state.tokenId}
+                    onChange={this.changeCard}
+                  />
+                  <br />
+                </fieldset>
+              </form>
+
+              <DataTable
+                tokenId={this.state.tokenId}
               />
+
             </div>
           </div>
-        </div>
 
+          <div className='pure-u-1-2'>
+            <div className='container'>
+              <div>
+                {/* <ContractData
+                  drizzle={this.props.drizzle}
+                  drizzleState={this.props.drizzleState}
+                  contract={'AthleteToken'}
+                  method={'playerName'}
+                  methodArgs={[this.state.tokenId]}
+                  value={this.state.playerName}
+                /> */}
+              </div>
+              <div>
+                <img
+                  src={this.images[this.state.tokenId]}
+                  alt={this.state.tokenId}
+                  style={{ width: '100%' }}
+                />
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     )
   }
