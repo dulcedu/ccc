@@ -154,13 +154,9 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     */
   function buyTokens(
     address _beneficiary,
-    string memory _playerName,
-    string memory _birthPlace,
-    string memory _birthDate,
-    uint _heightCm,
-    uint _weightKg,
-    string memory _college,
-    uint[11] memory _basketballStats
+    bytes32[6] memory _playerData,
+    uint[11] memory _basketballStats,
+    string memory _designURL
   ) 
   public
   payable
@@ -173,13 +169,9 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
 
     _processPurchase(
       _beneficiary,
-      _playerName,
-      _birthPlace,
-      _birthDate,
-      _heightCm,
-      _weightKg,
-      _college,
-      _basketballStats
+      _playerData,
+      _basketballStats,
+      _designURL
     );
     emit TokensPurchased(msg.sender, _beneficiary, weiAmount, _batchSize);
 
@@ -224,25 +216,17 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     */
   function _processPurchase(
     address _beneficiary,
-    string memory _playerName,
-    string memory _birthPlace,
-    string memory _birthDate,
-    uint _heightCm,
-    uint _weightKg,
-    string memory _college,
-    uint[11] memory _basketballStats
+    bytes32[6] memory _playerData,
+    uint[11] memory _basketballStats,
+    string memory _designURL
   ) 
     internal 
   {
     _deliverTokens(
       _beneficiary,
-      _playerName,
-      _birthPlace,
-      _birthDate,
-      _heightCm,
-      _weightKg,
-      _college,
-      _basketballStats
+      _playerData,
+      _basketballStats,
+      _designURL
     );
   }
 
@@ -253,13 +237,9 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
     */
   function _deliverTokens(
     address _beneficiary,
-    string memory _playerName,
-    string memory _birthPlace,
-    string memory _birthDate,
-    uint _heightCm,
-    uint _weightKg,
-    string memory _college,
-    uint[11] memory _basketballStats
+    bytes32[6] memory _playerData,
+    uint[11] memory _basketballStats,
+    string memory _designURL
   ) 
     internal
   {
@@ -269,13 +249,9 @@ contract CollectiblesCrowdsale is ReentrancyGuard {
       _token.newCard(
         _beneficiary,
         index,
-        _playerName,
-        _birthPlace,
-        _birthDate,
-        _heightCm,
-        _weightKg,
-        _college,
-        _basketballStats
+        _playerData,
+        _basketballStats,
+        _designURL
       );
     }
     _totalMintedTokens = index;

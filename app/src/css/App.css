@@ -32,6 +32,10 @@ code {
   margin: 0 auto;
 }
 
+form {
+    width: 100%;
+}
+
 input {
   background: #000;
   border: 1px inset !important;

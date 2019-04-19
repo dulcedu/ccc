@@ -5,32 +5,30 @@ import "./ERC721Mintable.sol";
 
 contract AthleteToken is ERC721Mintable {
 
-  mapping (uint256 => string) public playerName;
-  mapping (uint256 => string) public birthPlace;
-  mapping (uint256 => string) public birthDate;
+  mapping (uint256 => bytes32[6]) public playerData;
 
-  mapping (uint256 => uint) public heightCm;
-  mapping (uint256 => uint) public weightKg;
-
-  mapping (uint256 => string) public college;
   mapping (uint256 => uint[11]) public basketballStats;
+
+  mapping (uint256 => string) public designURL;
 
   // lock time. time-tiered transactions
   function newCard(
     address _to,
     uint256 _tokenId,
-    string memory _playerName,
-    string memory _birthPlace,
-    string memory _birthDate,
-    uint _heightCm,
-    uint _weightKg,
-    string memory _college,
+
+    bytes32[6] memory _playerData,
+    // string memory _playerName,
+    // string memory _birthPlace,
+    // string memory _birthDate,
+    // string memory _heightCm,
+    // string memory _weightKg,
+    // string memory _college,
 
     /** 
     * Puting data into arrays are the most optimal way 
     * to make functions that require a lot of parameters
     */
-    uint[11] memory _basketballStats
+    uint[11] memory _basketballStats,
     // uint _gamesPlayed,
     // uint _gamesStarted,
     // uint _minutesPerGame,
@@ -42,19 +40,22 @@ contract AthleteToken is ERC721Mintable {
     // uint _stealsPerGame,
     // uint _blocksPerGame,
     // uint _pointsPerGame
+
+    string memory _designURL
   )
     public
   {
     mint(_to, _tokenId);
 
-    playerName[_tokenId] = _playerName;
-    birthPlace[_tokenId] = _birthPlace;
-    birthDate[_tokenId] = _birthDate;
-    
-    heightCm[_tokenId] = _heightCm;
-    weightKg[_tokenId] = _weightKg;
-
-    college[_tokenId] = _college;
+    playerData[_tokenId] = _playerData;
+    //basketballStats[_tokenId] = [
+    //   _playerName,
+    //   _birthPlace,
+    //   _birthDate,
+    //   _heightCm,
+    //   _weightKg,
+    //   _college,
+    // ];
     
     basketballStats[_tokenId] = _basketballStats;
     //basketballStats[_tokenId] = [
@@ -70,6 +71,8 @@ contract AthleteToken is ERC721Mintable {
     //   _blocksPerGame,
     //   _pointsPerGame
     // ];
+
+    designURL[_tokenId] = _designURL;
   }
 
 }

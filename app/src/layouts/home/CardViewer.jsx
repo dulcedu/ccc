@@ -4,14 +4,6 @@ import { newContextComponents } from 'drizzle-react-components';
 
 import DataTable from '../components/DataTable';
 
-import _ from 'lodash'
-
-import ZionWilliamson from '../../img/1.png'
-import CamRedish from '../../img/2.png'
-import NassirLittle from '../../img/3.png'
-import RJBarrett from '../../img/4.png'
-import EdwardCarsen from '../../img/5.png'
-
 
 const { ContractData } = newContextComponents;
 
@@ -26,25 +18,9 @@ class CardSelector extends Component {
       tokenId: 0,
     }
     this.accounts = this.state.drizzleState.accounts
-    this.images = [
-      ZionWilliamson,
-      ZionWilliamson,
-      ZionWilliamson,
-      CamRedish,
-      CamRedish,
-      CamRedish,
-      NassirLittle,
-      NassirLittle,
-      NassirLittle,
-      RJBarrett,
-      RJBarrett,
-      RJBarrett,
-      // EdwardCarsen,
-      // EdwardCarsen,
-      // EdwardCarsen,
-    ]
     this.componentDidMount = this.componentDidMount.bind(this)
     this.changeCard = this.changeCard.bind(this)
+    this.designURL = React.createRef();
   }
 
   componentDidMount() {
@@ -76,15 +52,15 @@ class CardSelector extends Component {
 
   changeCard(event) {
     const { value } = event.target
-    this.setState((state, prevState) => {
-      return {
-        tokenId: value,
-        ...prevState,
-      }
+    this.setState({
+      tokenId: value,
     })
   }
 
   render() {
+    let designRef = this.designURL.current
+    let dataKey = !designRef || designRef == null ? '' : designRef.state.dataKey
+    let designURL = !dataKey ? '' : designRef.props.drizzleState.contracts['AthleteToken']['designURL'][dataKey]
     return (
       <div className="pure-g" style={{ backgroundColor: '#f50' }}>
         <div className='pure-u-1'>
@@ -123,19 +99,23 @@ class CardSelector extends Component {
           <div className='pure-u-1-2'>
             <div className='container'>
               <div>
-                {/* <ContractData
+                <ContractData
                   drizzle={this.props.drizzle}
                   drizzleState={this.props.drizzleState}
                   contract={'AthleteToken'}
-                  method={'playerName'}
+                  method={'designURL'}
                   methodArgs={[this.state.tokenId]}
-                  value={this.state.playerName}
-                /> */}
+                  ref={this.designURL}
+                />
               </div>
               <div>
                 <img
-                  src={this.images[this.state.tokenId]}
-                  alt={this.state.tokenId}
+                  src={
+                    !designRef || designRef == null ? '' :
+                      !designURL ? '' :
+                        designURL.value
+                  }
+                  alt={'Loading card design...'}
                   style={{ width: '100%' }}
                 />
               </div>

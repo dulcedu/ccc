@@ -27,19 +27,22 @@ module.exports = async (deployer, network, accounts) => {
   }
   // let value = await CC.valueReceived(valueToSend);
   // console.log(value)
-  let { ZionWilson, CamRedish, NassirLittle, RJBarrett } = require('./Players.js')(accounts)
+  let { ZionWilson, CamReddish, NassirLittle, RJBarrett } = require('./Players.js')(accounts)
 
-  let gasCost = await CC.buyTokens.estimateGas(...ZionWilson, valueToSend)
+  // let gasCost = await CC.buyTokens.estimateGas(...ZionWilson, valueToSend)
 
   await CC.TokensPurchased().once('data', event => console.log(event))
 
+  ZionWilson[1] = ZionWilson[1].map(web3.utils.utf8ToHex)
   await CC.buyTokens(...ZionWilson, valueToSend)
-  await CC.buyTokens(...CamRedish, valueToSend)
+  CamReddish[1] = CamReddish[1].map(web3.utils.utf8ToHex)
+  await CC.buyTokens(...CamReddish, valueToSend)
+  NassirLittle[1] = NassirLittle[1].map(web3.utils.utf8ToHex)
   await CC.buyTokens(...NassirLittle, valueToSend)
+  RJBarrett[1] = RJBarrett[1].map(web3.utils.utf8ToHex)
   await CC.buyTokens(...RJBarrett, valueToSend)
     // .on('transactionHash', console.log)
     // .on('receipt', console.log)
     // .on('error', console.log)
     // .on('confirmation', console.log)
-    
 }

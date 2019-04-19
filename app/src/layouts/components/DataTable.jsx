@@ -48,38 +48,41 @@ class DataTable extends Component {
                 <div>Value</div>
               </th>
             </tr>
-              {_.map(
-                [
-                  'playerName',
-                  'birthPlace',
-                  'birthDate',
-                  'heightCm',
-                  'weightKg',
-                  'college'
-                ],
-                element => {
-                  return (
-                    <tr key={element} style={this.style.tableRow}>
-                      <td style={this.style.tableData}>{element}</td>
-                      <td style={this.style.tableData._2nd}>
-                        <div>
-                          <ContractData
-                            drizzle={this.props.drizzle}
-                            drizzleState={this.props.drizzleState}
-                            contract='AthleteToken'
-                            method={element}
-                            methodArgs={[
-                              this.props.tokenId
-                            ]}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                }
-              )}
+              {_.range(6)
+                .map(
+                  index => {
+                    let array = [
+                      'playerName',
+                      'birthPlace',
+                      'birthDate',
+                      'heightCm',
+                      'weightKg',
+                      'college'
+                    ]
+                    return (
+                      <tr key={index} style={this.style.tableRow}>
+                        <td style={this.style.tableData}>{array[index]}</td>
+                        <td style={this.style.tableData._2nd}>
+                          <div>
+                            <ContractData
+                              drizzle={this.props.drizzle}
+                              drizzleState={this.props.drizzleState}
+                              contract={'AthleteToken'}
+                              method={'playerData'}
+                              methodArgs={[
+                                this.props.tokenId,
+                                index
+                              ]}
+                              toUtf8
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  }
+                )
+              }
           </tbody>
-
         </table>
         <br />
         
@@ -96,46 +99,45 @@ class DataTable extends Component {
                 <div>Value</div>
               </th>
             </tr>
-            {_.range(11)
-              .map(
-                index => {
-                  let stats = [
-                    'gamesPlayed',
-                    'gamesStarted',
-                    'minutesPerGame',
-                    'fieldGoalPercentage',
-                    'threPointFieldGoalPercentage',
-                    'freeThrowPercentage',
-                    'reboundsPerGame',
-                    'assistsPerGame',
-                    'stealsPerGame',
-                    'blocksPerGame',
-                    'pointsPerGame'
-                  ]
-                  return (
-                    <tr key={index} style={this.style.tableRow}>
-                      <td style={this.style.tableData._1st}>{stats[index]}</td>
-                      <td style={this.style.tableData._2nd}>
-                        <div>
-                          <ContractData
-                            drizzle={this.props.drizzle}
-                            drizzleState={this.props.drizzleState}
-                            contract={'AthleteToken'}
-                            method={'basketballStats'}
-                            methodArgs={[
-                              this.props.tokenId,
-                              index
-                            ]}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                }
-              )
-            }
+              {_.range(11)
+                .map(
+                  index => {
+                    let array = [
+                      'gamesPlayed',
+                      'gamesStarted',
+                      'minutesPerGame',
+                      'fieldGoalPercentage',
+                      'threPointFieldGoalPercentage',
+                      'freeThrowPercentage',
+                      'reboundsPerGame',
+                      'assistsPerGame',
+                      'stealsPerGame',
+                      'blocksPerGame',
+                      'pointsPerGame'
+                    ]
+                    return (
+                      <tr key={index} style={this.style.tableRow}>
+                        <td style={this.style.tableData._1st}>{array[index]}</td>
+                        <td style={this.style.tableData}>
+                          <div>
+                            <ContractData
+                              drizzle={this.props.drizzle}
+                              drizzleState={this.props.drizzleState}
+                              contract={'AthleteToken'}
+                              method={'basketballStats'}
+                              methodArgs={[
+                                this.props.tokenId,
+                                index
+                              ]}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  }
+                )
+              }
           </tbody>
-
         </table>
       </div>
     )
