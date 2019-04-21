@@ -4,7 +4,6 @@ import { newContextComponents } from 'drizzle-react-components';
 
 import DataTable from '../components/DataTable';
 
-
 const { ContractData } = newContextComponents;
 
 class CardSelector extends Component {

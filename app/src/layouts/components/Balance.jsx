@@ -3,7 +3,9 @@ import { DrizzleContext } from 'drizzle-react'
 import _ from 'lodash'
 
 // Components
-import { ContractData } from 'drizzle-react-components'
+import { newContextComponents } from 'drizzle-react-components'
+
+const { ContractData } = newContextComponents;
 
 var tinycolor = require("tinycolor2");
 class Balance extends Component {
@@ -14,7 +16,7 @@ class Balance extends Component {
       address: {
         color: '#000',
         display: 'inline',
-        fontSize: '12px', 
+        fontSize: '12px',
       },
       balance: {
         color: 'white',
@@ -50,9 +52,6 @@ class Balance extends Component {
           ...prevState.balance,
           backgroundColor: tinycolor(this.props.currentAccount.substring(9, 15)).toString(),
         },
-        tableRow: {
-          ...prevState.tableRow,
-        },
         currentAccount: this.props.currentAccount,
       })
     }
@@ -67,29 +66,25 @@ class Balance extends Component {
       )
     else {
       return (
-        <tr style={this.state.tableRow}>
-          <td style={this.state.tableData}>
+        <div style={this.state.tableRow}>
+          <div style={this.state.tableData}>
             balanceOf:{' '}
             <strong style={this.state.address}>
               {this.props.currentAccount}
             </strong>{' '}
-          </td>
-          <td style={this.state.tableData}>
+          </div>
+          <div style={this.state.tableData}>
             <div style={this.state.balance}>
-              {/* <ContractData
-                drizzle={this.props.drizzle}
-                drizzleState={this.props.drizzleState}
-                contract={this.props.tokenContract}
-                method="balanceOf" 
-                methodArgs={[this.props.currentAccount]} />{' '}            
               <ContractData
                 drizzle={this.props.drizzle}
                 drizzleState={this.props.drizzleState}
                 contract={this.props.tokenContract}
-                method="symbol" /> */}
+                method="balanceOf"
+                methodArgs={[this.props.currentAccount]}
+              />{' Fair Share eCards'}
             </div>
-          </td>
-        </tr>
+          </div>
+        </div>
       )
     }
   }
@@ -98,18 +93,19 @@ class Balance extends Component {
 
 export default (props) => (
   <DrizzleContext.Consumer>
-    {
-      drizzleContext => {
-        var drizzle = drizzleContext.drizzle
-        var drizzleState = drizzle.store.getState()
-        return (
-          {/* <Balance
-            drizzle={drizzle}
-            drizzleState={drizzleState}
-            currentAccount={drizzleState.accounts[props.index]}
-            tokenContract={props.tokenContract} /> */}
-        )
+    {drizzleContext => {
+      const { drizzle, drizzleState, initialized } = drizzleContext;
+      if (!initialized || !drizzleState.accounts[props.index]) {
+        return 'Loading...';
       }
-    }
+      return (
+        <Balance
+          drizzle={drizzle}
+          drizzleState={drizzleState}
+          currentAccount={drizzleState.accounts[props.index]}
+          tokenContract={props.tokenContract}
+        />
+      )
+    }}
   </DrizzleContext.Consumer >
 )

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { DrizzleContext } from 'drizzle-react'
-import { newContextComponents } from 'drizzle-react-components';
 
-const { ContractForm } = newContextComponents;
-
+import Balance from '../components/Balance';
+import ContractForm from '../components/ContractForm';
 class CardCreator extends Component {
 
   constructor(props) {
@@ -68,10 +67,21 @@ class CardCreator extends Component {
               </form>
 
               <ContractForm
+                contract='CollectiblesCrowdsale'
                 drizzle={this.props.drizzle}
                 drizzleState={this.props.drizzleState}
-                contract='CollectiblesCrowdsale'
                 method='buyTokens'
+                sendArgs={{ value: this.props.drizzle.web3.utils.toWei('600','szabo')}}
+              />
+            </div>
+          </div>
+          <div className='pure-u-1-2'>
+            <div className='container'>
+              <Balance
+                drizzle={this.props.drizzle}
+                drizzleState={this.props.drizzleState}
+                index={0}
+                tokenContract={'AthleteToken'}
               />
             </div>
           </div>
@@ -85,17 +95,16 @@ class CardCreator extends Component {
 export default () => (
   <DrizzleContext.Consumer>
     {drizzleContext => {
-        const { drizzle, drizzleState, initialized } = drizzleContext;
-        if (!initialized) {
-          return "Loading...";
-        }
-        return (
-          <CardCreator
-            drizzle={drizzle}
-            drizzleState={drizzleState}
-          />
-        )
+      const { drizzle, drizzleState, initialized } = drizzleContext;
+      if (!initialized) {
+        return "Loading...";
       }
-    }
+      return (
+        <CardCreator
+          drizzle={drizzle}
+          drizzleState={drizzleState}
+        />
+      )
+    }}
   </DrizzleContext.Consumer >
 )
